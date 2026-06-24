@@ -272,3 +272,32 @@ textarea:focus {
   font-size: 0.9rem;
   color: var(--muted);
 }
+
+/* Billing UI */
+.navbar-balance {
+  font-weight: 600;
+  color: var(--primary);
+  font-variant-numeric: tabular-nums;
+}
+.price {
+  margin: 0.25rem 0 0;
+  font-weight: 600;
+  color: var(--primary);
+}
+.cost-preview {
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+}
+.badge-user {
+  background: #eef2ff;
+  color: var(--primary);
+}
+.badge-admin {
+  background: #fef3c7;
+  color: #b45309;
+}
+.topup-input {
+  width: 110px;
+  display: inline-block;
+  margin: 0;
+}

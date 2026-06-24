@@ -8,6 +8,7 @@ import RoomsPage from './pages/RoomsPage';
 import RoomDetailPage from './pages/RoomDetailPage';
 import MyBookingsPage from './pages/MyBookingsPage';
 import AdminRoomsPage from './pages/AdminRoomsPage';
+import AdminUsersPage from './pages/AdminUsersPage';
 
 function AppLayout() {
   return (
@@ -32,6 +33,7 @@ export default function App() {
           <Route path="/my-bookings" element={<MyBookingsPage />} />
           <Route element={<AdminRoute />}>
             <Route path="/admin/rooms" element={<AdminRoomsPage />} />
+            <Route path="/admin/users" element={<AdminUsersPage />} />
           </Route>
         </Route>
       </Route>

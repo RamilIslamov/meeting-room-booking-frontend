@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { listRooms } from '../api/rooms';
 import { errorMessage } from '../api/client';
+import { credits } from '../lib/format';
 import type { Room } from '../types';
 
 export default function RoomsPage() {
@@ -32,6 +33,7 @@ export default function RoomsPage() {
               <p className="muted">Capacity: {room.capacity}</p>
               {room.location && <p className="muted">{room.location}</p>}
               {room.description && <p>{room.description}</p>}
+              <p className="price">{credits(room.pricePerHour)}/hour</p>
             </Link>
           ))}
         </div>

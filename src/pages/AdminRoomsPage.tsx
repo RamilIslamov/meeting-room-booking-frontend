@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { createRoom, deleteRoom, listRooms, updateRoom } from '../api/rooms';
 import { errorMessage } from '../api/client';
+import { credits } from '../lib/format';
 import type { Room } from '../types';
 
 interface RoomFormValues {
@@ -9,9 +10,10 @@ interface RoomFormValues {
   capacity: number;
   location: string;
   description: string;
+  pricePerHour: number;
 }
 
-const EMPTY: RoomFormValues = { name: '', capacity: 1, location: '', description: '' };
+const EMPTY: RoomFormValues = { name: '', capacity: 1, location: '', description: '', pricePerHour: 0 };
 
 export default function AdminRoomsPage() {
   const [rooms, setRooms] = useState<Room[]>([]);
@@ -35,6 +37,7 @@ export default function AdminRoomsPage() {
       capacity: room.capacity,
       location: room.location ?? '',
       description: room.description ?? '',
+      pricePerHour: room.pricePerHour,
     });
   }
 
@@ -50,6 +53,7 @@ export default function AdminRoomsPage() {
       capacity: Number(values.capacity),
       location: values.location || undefined,
       description: values.description || undefined,
+      pricePerHour: Number(values.pricePerHour),
     };
     try {
       if (editingId === null) {
@@ -104,6 +108,22 @@ export default function AdminRoomsPage() {
           Description
           <textarea rows={2} {...register('description')} />
         </label>
+        <label>
+          Price per hour (credits)
+          <input
+            type="number"
+            min={0}
+            step="0.01"
+            {...register('pricePerHour', {
+              required: true,
+              valueAsNumber: true,
+              min: { value: 0, message: 'Must be 0 or more' },
+            })}
+          />
+          {formState.errors.pricePerHour && (
+            <span className="field-error">{formState.errors.pricePerHour.message}</span>
+          )}
+        </label>
         <div className="row">
           <button type="submit" className="btn btn-primary" disabled={formState.isSubmitting}>
             {editingId === null ? 'Create' : 'Save'}
@@ -126,6 +146,7 @@ export default function AdminRoomsPage() {
               <th>Name</th>
               <th>Capacity</th>
               <th>Location</th>
+              <th>Price/h</th>
               <th />
             </tr>
           </thead>
@@ -135,6 +156,7 @@ export default function AdminRoomsPage() {
                 <td>{room.name}</td>
                 <td>{room.capacity}</td>
                 <td>{room.location ?? '—'}</td>
+                <td>{credits(room.pricePerHour)}</td>
                 <td className="actions">
                   <button type="button" className="btn btn-secondary" onClick={() => startEdit(room)}>
                     Edit
