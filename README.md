@@ -1,8 +1,9 @@
 # Meeting Room Booking — Frontend
 
 React + TypeScript single‑page app for the Meeting Room Booking backend.
-Users sign in, browse rooms, view a room's bookings for a day and reserve a slot;
-admins manage rooms. Authentication is JWT‑based with role‑aware routing.
+Users sign in, browse priced rooms, view a room's bookings for a day and reserve a
+slot paid from a credit balance; admins manage rooms and user balances.
+Authentication is JWT‑based with role‑aware routing.
 
 > **Backend:** the Spring Boot / PostgreSQL API lives in a separate repo —
 > [meeting-room-booking](https://github.com/RamilIslamov/meeting-room-booking).
@@ -18,11 +19,16 @@ admins manage rooms. Authentication is JWT‑based with role‑aware routing.
 
 - Register / login; JWT and user stored in `localStorage`
 - Role‑aware navigation and route guards (`ProtectedRoute`, `AdminRoute`)
-- Rooms list and room detail with a date picker + that day's bookings
-- Create a booking; backend validation errors (conflict, working hours, etc.)
-  are surfaced inline
-- "My bookings" with cancel
-- Admin: create / edit / soft‑delete rooms
+- Credit **balance shown in the navbar**, refreshed after every money operation
+- Rooms list and detail showing the **price per hour**; date picker + that day's
+  bookings
+- Booking form with a live **cost preview** (price × duration); the Book button is
+  disabled when the balance is too low; backend errors (conflict, working hours,
+  insufficient funds, …) are surfaced inline
+- Non‑admins cannot pick past dates/times; admins are unrestricted (backdating)
+- "My bookings" with a cost column, inline **edit** (title/date/time) and cancel
+- Admin: create / edit / soft‑delete rooms (with price); a **Users** page to view
+  balances and **top them up**
 - Centralised error handling that reads the backend `ErrorResponse`
 
 ## Prerequisites
