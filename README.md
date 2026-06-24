@@ -1,8 +1,11 @@
 # Meeting Room Booking — Frontend
 
-React + TypeScript single‑page app for the [Meeting Room Booking backend](https://github.com/RamilIslamov/meeting-room-booking).
+React + TypeScript single‑page app for the Meeting Room Booking backend.
 Users sign in, browse rooms, view a room's bookings for a day and reserve a slot;
 admins manage rooms. Authentication is JWT‑based with role‑aware routing.
+
+> **Backend:** the Spring Boot / PostgreSQL API lives in a separate repo —
+> [meeting-room-booking](https://github.com/RamilIslamov/meeting-room-booking).
 
 ## Tech stack
 
