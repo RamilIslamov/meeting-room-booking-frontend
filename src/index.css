@@ -232,6 +232,10 @@ textarea:focus {
   border-radius: 10px;
   overflow: hidden;
 }
+/* Wrap dense tables so a wide one scrolls itself instead of the whole page. */
+.table-scroll {
+  overflow-x: auto;
+}
 .table th,
 .table td {
   text-align: left;
@@ -268,11 +272,13 @@ textarea:focus {
   max-width: 22ch;
 }
 /* Room names may wrap within the cell so a long name can't push the table
-   past its parent's width. */
+   past its parent's width — but only break at spaces (or a single
+   over-long token), never mid-word. */
 .table .col-room {
   white-space: normal;
-  overflow-wrap: anywhere;
-  min-width: 8ch;
+  overflow-wrap: break-word;
+  min-width: 12ch;
+  max-width: 16ch;
 }
 /* Right-align the status column so its badge hugs the trailing actions
    column instead of leaving a gap (the column is sized for the widest badge). */
@@ -515,6 +521,9 @@ a.room-card:hover {
   justify-content: center;
   gap: 0.2rem;
   min-height: 120px;
+  /* Stretch to the height of the tallest room card in the row (the grid is
+     align-items:start, so an open form still won't stretch its neighbours). */
+  align-self: stretch;
   border: 2px dashed var(--border);
   border-radius: 10px;
   background: transparent;

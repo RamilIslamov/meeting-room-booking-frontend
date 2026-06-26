@@ -136,6 +136,7 @@ export default function BookingsPage() {
       {bookings.length === 0 ? (
         <p className="muted">{isAdmin ? 'No bookings yet.' : 'You have no bookings yet.'}</p>
       ) : (
+        <div className="table-scroll">
         <table className="table">
           <thead>
             <tr>
@@ -179,6 +180,7 @@ export default function BookingsPage() {
             ))}
           </tbody>
         </table>
+        </div>
       )}
     </div>
   );
