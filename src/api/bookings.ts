@@ -14,6 +14,11 @@ export function listBookingsInRange(from: string, to: string): Promise<Booking[]
   return api.get<Booking[]>('/bookings/admin', { params: { from, to } }).then((r) => r.data);
 }
 
+/** Admin only: every booking, newest first. */
+export function listAllBookings(): Promise<Booking[]> {
+  return api.get<Booking[]>('/bookings/admin').then((r) => r.data);
+}
+
 export function createBooking(body: BookingRequest): Promise<Booking> {
   return api.post<Booking>('/bookings', body).then((r) => r.data);
 }

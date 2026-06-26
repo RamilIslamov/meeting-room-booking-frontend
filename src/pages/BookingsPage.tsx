@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { cancelBooking, listMyBookings, updateBooking } from '../api/bookings';
+import { cancelBooking, listAllBookings, listMyBookings, updateBooking } from '../api/bookings';
 import { errorMessage } from '../api/client';
 import { useAuth } from '../auth/AuthContext';
 import { credits, dateOf, nowTime, timeOf, toLocalDateTime, todayLocalDate } from '../lib/format';
@@ -13,21 +13,22 @@ interface EditState {
   endTime: string;
 }
 
-export default function MyBookingsPage() {
+export default function BookingsPage() {
   const { isAdmin, refreshBalance } = useAuth();
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [edit, setEdit] = useState<EditState | null>(null);
 
+  // Admins manage every booking; regular users see only their own.
   function load() {
-    listMyBookings()
+    (isAdmin ? listAllBookings() : listMyBookings())
       .then(setBookings)
       .catch((e) => setError(errorMessage(e)))
       .finally(() => setLoading(false));
   }
 
-  useEffect(load, []);
+  useEffect(load, [isAdmin]);
 
   function startEdit(b: Booking) {
     setError(null);
@@ -76,7 +77,7 @@ export default function MyBookingsPage() {
 
   return (
     <div>
-      <h1>My bookings</h1>
+      <h1>Bookings</h1>
       {error && <div className="alert alert-error">{error}</div>}
 
       {edit && (
@@ -133,7 +134,7 @@ export default function MyBookingsPage() {
       )}
 
       {bookings.length === 0 ? (
-        <p className="muted">You have no bookings yet.</p>
+        <p className="muted">{isAdmin ? 'No bookings yet.' : 'You have no bookings yet.'}</p>
       ) : (
         <table className="table">
           <thead>
@@ -141,6 +142,7 @@ export default function MyBookingsPage() {
               <th className="col-room">Room</th>
               <th>Date</th>
               <th>Time</th>
+              {isAdmin && <th>User</th>}
               <th>Title</th>
               <th className="num">Cost</th>
               <th className="col-status">Status</th>
@@ -155,6 +157,7 @@ export default function MyBookingsPage() {
                 <td className="col-time">
                   {timeOf(b.startTime)}–{timeOf(b.endTime)}
                 </td>
+                {isAdmin && <td className="col-title">{b.userEmail}</td>}
                 <td className="col-title">{b.title}</td>
                 <td className="num">{credits(b.cost)}</td>
                 <td className="col-status">

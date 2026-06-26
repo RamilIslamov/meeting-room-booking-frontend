@@ -21,7 +21,7 @@ export default function LoginPage() {
     try {
       const auth = await loginApi(values.email, values.password);
       setSession(auth);
-      navigate('/rooms');
+      navigate(auth.role === 'ADMIN' ? '/admin/dashboard' : '/rooms');
     } catch (e) {
       setError(errorMessage(e));
     }

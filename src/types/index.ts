@@ -35,6 +35,7 @@ export interface Room {
   name: string;
   capacity: number;
   location: string | null;
+  floor: number | null;
   description: string | null;
   pricePerHour: number;
   active: boolean;
@@ -44,6 +45,7 @@ export interface RoomRequest {
   name: string;
   capacity: number;
   location?: string;
+  floor?: number | null;
   description?: string;
   pricePerHour: number;
 }

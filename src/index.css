@@ -93,12 +93,15 @@ h2 {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 1rem;
+  /* Cards size to their own content — keeps an open edit/add form from
+     stretching its row-mates to its (taller) height. */
+  align-items: start;
 }
 .room-card {
   display: block;
   color: var(--text);
 }
-.room-card:hover {
+a.room-card:hover {
   border-color: var(--primary);
   text-decoration: none;
 }
@@ -363,7 +366,7 @@ textarea:focus {
 .room-card {
   transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
 }
-.room-card:hover {
+a.room-card:hover {
   box-shadow: 0 4px 12px rgba(37, 99, 235, 0.12);
   transform: translateY(-2px);
 }
@@ -433,4 +436,113 @@ textarea:focus {
 .kpi-sub {
   font-size: 0.78rem;
   color: var(--muted);
+}
+
+/* Rooms page: floor sidebar + editable cards */
+.rooms-layout {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+.floor-nav {
+  flex: 0 0 150px;
+  position: sticky;
+  top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.floor-nav-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  padding: 0.55rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  font: inherit;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.floor-nav-item:hover {
+  border-color: var(--primary);
+}
+.floor-nav-item.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+.floor-nav-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+.floor-nav-item.active .floor-nav-label {
+  color: rgba(255, 255, 255, 0.85);
+}
+.floor-nav-num {
+  font-size: 1.05rem;
+  font-variant-numeric: tabular-nums;
+}
+.rooms-main {
+  flex: 1;
+  min-width: 0;
+}
+.room-card-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.room-card-head h3 {
+  margin: 0;
+}
+.room-card .price {
+  margin: 0;
+}
+.room-card-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+.room-add-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  min-height: 120px;
+  border: 2px dashed var(--border);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.room-add-card:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+.room-add-plus {
+  font-size: 2.4rem;
+  line-height: 1;
+}
+.room-form {
+  margin: 0;
+}
+@media (max-width: 720px) {
+  .rooms-layout {
+    flex-direction: column;
+  }
+  .floor-nav {
+    position: static;
+    flex-basis: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 }

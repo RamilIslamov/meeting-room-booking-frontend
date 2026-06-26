@@ -6,9 +6,8 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import RoomsPage from './pages/RoomsPage';
 import RoomDetailPage from './pages/RoomDetailPage';
-import MyBookingsPage from './pages/MyBookingsPage';
+import BookingsPage from './pages/BookingsPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
-import AdminRoomsPage from './pages/AdminRoomsPage';
 import AdminUsersPage from './pages/AdminUsersPage';
 
 function AppLayout() {
@@ -31,10 +30,10 @@ export default function App() {
         <Route element={<AppLayout />}>
           <Route path="/rooms" element={<RoomsPage />} />
           <Route path="/rooms/:id" element={<RoomDetailPage />} />
-          <Route path="/my-bookings" element={<MyBookingsPage />} />
+          <Route path="/bookings" element={<BookingsPage />} />
+          <Route path="/my-bookings" element={<Navigate to="/bookings" replace />} />
           <Route element={<AdminRoute />}>
             <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
-            <Route path="/admin/rooms" element={<AdminRoomsPage />} />
             <Route path="/admin/users" element={<AdminUsersPage />} />
           </Route>
         </Route>
