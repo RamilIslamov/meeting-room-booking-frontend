@@ -276,13 +276,16 @@ textarea:focus {
 .table .col-status {
   text-align: right;
 }
-/* Keep the action buttons tight to the right, next to the status badge. */
+/* Action buttons: keep the <td> a real table-cell (no display:flex, which
+   drops it out of the row and breaks the hover highlight on empty cells).
+   Right-align and keep buttons on one line, spaced via margin. */
 .table .actions {
-  justify-content: flex-end;
+  text-align: right;
+  white-space: nowrap;
+  vertical-align: middle;
 }
-.actions {
-  display: flex;
-  gap: 0.5rem;
+.table .actions .btn + .btn {
+  margin-left: 0.5rem;
 }
 .badge {
   padding: 0.15rem 0.5rem;
