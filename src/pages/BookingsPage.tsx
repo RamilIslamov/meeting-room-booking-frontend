@@ -136,7 +136,6 @@ export default function BookingsPage() {
       {bookings.length === 0 ? (
         <p className="muted">{isAdmin ? 'No bookings yet.' : 'You have no bookings yet.'}</p>
       ) : (
-        <div className="table-scroll">
         <table className="table">
           <thead>
             <tr>
@@ -158,8 +157,14 @@ export default function BookingsPage() {
                 <td className="col-time">
                   {timeOf(b.startTime)}–{timeOf(b.endTime)}
                 </td>
-                {isAdmin && <td className="col-title">{b.userEmail}</td>}
-                <td className="col-title">{b.title}</td>
+                {isAdmin && (
+                  <td className="col-title" title={b.userEmail}>
+                    {b.userEmail}
+                  </td>
+                )}
+                <td className="col-title" title={b.title}>
+                  {b.title}
+                </td>
                 <td className="num">{credits(b.cost)}</td>
                 <td className="col-status">
                   <span className={`badge badge-${b.status.toLowerCase()}`}>{b.status}</span>
@@ -180,7 +185,6 @@ export default function BookingsPage() {
             ))}
           </tbody>
         </table>
-        </div>
       )}
     </div>
   );

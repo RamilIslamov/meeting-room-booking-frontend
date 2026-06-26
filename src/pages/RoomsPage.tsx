@@ -118,7 +118,7 @@ export default function RoomsPage() {
   function renderForm(submitLabel: string) {
     return (
       <form
-        className="card room-form"
+        className="room-form"
         onSubmit={(e) => {
           e.preventDefault();
           void submitForm();
@@ -225,9 +225,7 @@ export default function RoomsPage() {
           ) : (
             <div className="grid">
               {visible.map((room) =>
-                isAdmin && mode?.type === 'edit' && mode.id === room.id ? (
-                  <div key={room.id}>{renderForm('Save')}</div>
-                ) : isAdmin ? (
+                isAdmin ? (
                   <div key={room.id} className="card room-card">
                     <div className="room-card-head">
                       <h3>{room.name}</h3>
@@ -262,19 +260,25 @@ export default function RoomsPage() {
                 ),
               )}
 
-              {isAdmin &&
-                (mode?.type === 'create' ? (
-                  renderForm('Create')
-                ) : (
-                  <button type="button" className="card room-add-card" onClick={startCreate}>
-                    <span className="room-add-plus">+</span>
-                    <span>Add room</span>
-                  </button>
-                ))}
+              {isAdmin && (
+                <button type="button" className="card room-add-card" onClick={startCreate}>
+                  <span className="room-add-plus">+</span>
+                  <span>Add room</span>
+                </button>
+              )}
             </div>
           )}
         </div>
       </div>
+
+      {isAdmin && mode && (
+        <div className="modal-overlay" onClick={cancelForm}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <h2>{mode.type === 'edit' ? 'Edit room' : 'Add room'}</h2>
+            {renderForm(mode.type === 'edit' ? 'Save' : 'Create')}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

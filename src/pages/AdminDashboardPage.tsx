@@ -199,7 +199,6 @@ export default function AdminDashboardPage() {
         {current.bookings.length === 0 ? (
           <p className="muted">No bookings this week.</p>
         ) : (
-          <div className="table-scroll">
           <table className="table">
             <thead>
               <tr>
@@ -230,7 +229,6 @@ export default function AdminDashboardPage() {
               ))}
             </tbody>
           </table>
-          </div>
         )}
       </div>
     </div>

@@ -93,9 +93,9 @@ h2 {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 1rem;
-  /* Cards size to their own content — keeps an open edit/add form from
-     stretching its row-mates to its (taller) height. */
-  align-items: start;
+  /* Cards in a row share the same height for a tidy grid. The edit/add form
+     opens in a modal, so it never stretches the cards. */
+  align-items: stretch;
 }
 .room-card {
   display: block;
@@ -232,14 +232,10 @@ textarea:focus {
   border-radius: 10px;
   overflow: hidden;
 }
-/* Wrap dense tables so a wide one scrolls itself instead of the whole page. */
-.table-scroll {
-  overflow-x: auto;
-}
 .table th,
 .table td {
   text-align: left;
-  padding: 0.6rem 0.75rem;
+  padding: 0.55rem 0.55rem;
   border-bottom: 1px solid var(--border);
   /* Keep cells on one line so columns don't wrap; the free-text column ellipsizes instead. */
   white-space: nowrap;
@@ -269,7 +265,7 @@ textarea:focus {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 22ch;
+  max-width: 16ch;
 }
 /* Room names may wrap within the cell so a long name can't push the table
    past its parent's width — but only break at spaces (or a single
@@ -521,9 +517,6 @@ a.room-card:hover {
   justify-content: center;
   gap: 0.2rem;
   min-height: 120px;
-  /* Stretch to the height of the tallest room card in the row (the grid is
-     align-items:start, so an open form still won't stretch its neighbours). */
-  align-self: stretch;
   border: 2px dashed var(--border);
   border-radius: 10px;
   background: transparent;
@@ -543,6 +536,31 @@ a.room-card:hover {
 }
 .room-form {
   margin: 0;
+}
+
+/* Modal (room create/edit) */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(15, 23, 42, 0.45);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 4rem 1rem;
+}
+.modal {
+  width: 420px;
+  max-width: 100%;
+  max-height: 85vh;
+  overflow: auto;
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 1.25rem 1.4rem;
+  box-shadow: 0 12px 40px rgba(15, 23, 42, 0.25);
+}
+.modal h2 {
+  margin-top: 0;
 }
 @media (max-width: 720px) {
   .rooms-layout {
