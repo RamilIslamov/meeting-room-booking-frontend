@@ -41,3 +41,33 @@ export function nowTime(): string {
   const now = new Date();
   return `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
 }
+
+/** Local Date -> "YYYY-MM-DD". */
+export function isoDate(d: Date): string {
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+/** Monday (local, 00:00) of the week containing `d`. */
+export function startOfWeek(d: Date): Date {
+  const x = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  const mondayOffset = (x.getDay() + 6) % 7; // Sun=0 -> 6, Mon=1 -> 0, …
+  x.setDate(x.getDate() - mondayOffset);
+  return x;
+}
+
+/** Add `days` to a date, returning a new Date (00:00 local). */
+export function addDays(d: Date, days: number): Date {
+  const x = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  x.setDate(x.getDate() + days);
+  return x;
+}
+
+/** Short label like "Jun 22 – Jun 28". */
+export function weekLabel(monday: Date): string {
+  const sunday = addDays(monday, 6);
+  const fmt = (x: Date) => x.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+  return `${fmt(monday)} – ${fmt(sunday)}`;
+}

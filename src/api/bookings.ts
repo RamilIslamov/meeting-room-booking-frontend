@@ -9,6 +9,11 @@ export function listRoomBookings(roomId: number, date: string): Promise<Booking[
   return api.get<Booking[]>('/bookings', { params: { roomId, date } }).then((r) => r.data);
 }
 
+/** Admin only: every booking starting within the inclusive [from, to] day range. */
+export function listBookingsInRange(from: string, to: string): Promise<Booking[]> {
+  return api.get<Booking[]>('/bookings/admin', { params: { from, to } }).then((r) => r.data);
+}
+
 export function createBooking(body: BookingRequest): Promise<Booking> {
   return api.post<Booking>('/bookings', body).then((r) => r.data);
 }

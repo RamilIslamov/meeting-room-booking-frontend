@@ -19,6 +19,7 @@ export default function Navbar() {
       <div className="navbar-links">
         <NavLink to="/rooms">Rooms</NavLink>
         <NavLink to="/my-bookings">My bookings</NavLink>
+        {isAdmin && <NavLink to="/admin/dashboard">Dashboard</NavLink>}
         {isAdmin && <NavLink to="/admin/rooms">Manage rooms</NavLink>}
         {isAdmin && <NavLink to="/admin/users">Users</NavLink>}
       </div>

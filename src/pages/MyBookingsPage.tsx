@@ -142,8 +142,8 @@ export default function MyBookingsPage() {
               <th>Date</th>
               <th>Time</th>
               <th>Title</th>
-              <th>Cost</th>
-              <th>Status</th>
+              <th className="num">Cost</th>
+              <th className="col-status">Status</th>
               <th />
             </tr>
           </thead>
@@ -152,12 +152,12 @@ export default function MyBookingsPage() {
               <tr key={b.id}>
                 <td>{b.roomName}</td>
                 <td>{dateOf(b.startTime)}</td>
-                <td>
+                <td className="col-time">
                   {timeOf(b.startTime)}–{timeOf(b.endTime)}
                 </td>
-                <td>{b.title}</td>
-                <td>{credits(b.cost)}</td>
-                <td>
+                <td className="col-title">{b.title}</td>
+                <td className="num">{credits(b.cost)}</td>
+                <td className="col-status">
                   <span className={`badge badge-${b.status.toLowerCase()}`}>{b.status}</span>
                 </td>
                 <td className="actions">

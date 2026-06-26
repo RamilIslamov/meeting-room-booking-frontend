@@ -136,6 +136,11 @@ textarea {
   font: inherit;
   background: #fff;
 }
+/* Don't let the resize handle drag a textarea past its parent's width. */
+textarea {
+  resize: vertical;
+  max-width: 100%;
+}
 input:focus,
 textarea:focus {
   outline: 2px solid var(--primary);
@@ -229,11 +234,44 @@ textarea:focus {
   text-align: left;
   padding: 0.6rem 0.75rem;
   border-bottom: 1px solid var(--border);
+  /* Keep cells on one line so columns don't wrap; the free-text column ellipsizes instead. */
+  white-space: nowrap;
 }
 .table th {
   background: #fafafa;
   font-size: 0.85rem;
   color: var(--muted);
+}
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+.table tbody tr:hover td {
+  background: #fafbff;
+}
+/* Numeric columns: right-aligned with aligned digits. */
+.table .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+/* Time ranges read better with aligned digits. */
+.table .col-time {
+  font-variant-numeric: tabular-nums;
+}
+/* Free-text columns take the slack and ellipsize when very long. */
+.table .col-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 22ch;
+}
+/* Right-align the status column so its badge hugs the trailing actions
+   column instead of leaving a gap (the column is sized for the widest badge). */
+.table .col-status {
+  text-align: right;
+}
+/* Keep the action buttons tight to the right, next to the status badge. */
+.table .actions {
+  justify-content: flex-end;
 }
 .actions {
   display: flex;
@@ -300,4 +338,89 @@ textarea:focus {
   width: 110px;
   display: inline-block;
   margin: 0;
+}
+
+/* Light visual upgrade: softer cards + tables */
+.card {
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 1px 3px rgba(16, 24, 40, 0.06);
+}
+.table {
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+}
+.btn {
+  transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.room-card {
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+.room-card:hover {
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.12);
+  transform: translateY(-2px);
+}
+
+/* Admin dashboard */
+.dash-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+.week-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.week-nav .btn {
+  padding: 0.35rem 0.7rem;
+  line-height: 1;
+}
+.week-nav-label {
+  min-width: 130px;
+  text-align: center;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0 1.5rem;
+}
+.kpi {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 1px 3px rgba(16, 24, 40, 0.06);
+}
+.kpi-accent {
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: #fff;
+}
+.kpi-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.kpi-accent .kpi-label,
+.kpi-accent .kpi-sub {
+  color: rgba(255, 255, 255, 0.85);
+}
+.kpi-value {
+  font-size: 1.7rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+.kpi-sub {
+  font-size: 0.78rem;
+  color: var(--muted);
 }
