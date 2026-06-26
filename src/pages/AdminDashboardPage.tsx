@@ -204,7 +204,7 @@ export default function AdminDashboardPage() {
               <tr>
                 <th>Date</th>
                 <th>Time</th>
-                <th>Room</th>
+                <th className="col-room">Room</th>
                 <th>User</th>
                 <th>Title</th>
                 <th className="num">Cost</th>
@@ -218,7 +218,7 @@ export default function AdminDashboardPage() {
                   <td className="col-time">
                     {timeOf(b.startTime)}–{timeOf(b.endTime)}
                   </td>
-                  <td>{b.roomName}</td>
+                  <td className="col-room">{b.roomName}</td>
                   <td className="col-title">{b.userEmail}</td>
                   <td className="col-title">{b.title}</td>
                   <td className="num">{credits(b.cost)}</td>

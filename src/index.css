@@ -264,6 +264,13 @@ textarea:focus {
   text-overflow: ellipsis;
   max-width: 22ch;
 }
+/* Room names may wrap within the cell so a long name can't push the table
+   past its parent's width. */
+.table .col-room {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  min-width: 8ch;
+}
 /* Right-align the status column so its badge hugs the trailing actions
    column instead of leaving a gap (the column is sized for the widest badge). */
 .table .col-status {

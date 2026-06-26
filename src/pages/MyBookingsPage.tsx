@@ -138,7 +138,7 @@ export default function MyBookingsPage() {
         <table className="table">
           <thead>
             <tr>
-              <th>Room</th>
+              <th className="col-room">Room</th>
               <th>Date</th>
               <th>Time</th>
               <th>Title</th>
@@ -150,7 +150,7 @@ export default function MyBookingsPage() {
           <tbody>
             {bookings.map((b) => (
               <tr key={b.id}>
-                <td>{b.roomName}</td>
+                <td className="col-room">{b.roomName}</td>
                 <td>{dateOf(b.startTime)}</td>
                 <td className="col-time">
                   {timeOf(b.startTime)}–{timeOf(b.endTime)}
